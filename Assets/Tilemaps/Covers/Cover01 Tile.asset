@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e7f03a71d146b45be77d75f5b68ca3, type: 3}
+  m_Name: Cover01 Tile
+  m_EditorClassIdentifier: 
+  Single:
+  - {fileID: 7089549886483999515, guid: bc3ab4c2596778445950111b7b99cf61, type: 3}
+  LeftEnd:
+  - {fileID: -5798470518260081106, guid: bc3ab4c2596778445950111b7b99cf61, type: 3}
+  Middle:
+  - {fileID: 7301290580137330901, guid: bc3ab4c2596778445950111b7b99cf61, type: 3}
+  - {fileID: -6691803562030470617, guid: bc3ab4c2596778445950111b7b99cf61, type: 3}
+  - {fileID: -6307818023200807072, guid: bc3ab4c2596778445950111b7b99cf61, type: 3}
+  RightEnd:
+  - {fileID: -2371473166995018029, guid: bc3ab4c2596778445950111b7b99cf61, type: 3}

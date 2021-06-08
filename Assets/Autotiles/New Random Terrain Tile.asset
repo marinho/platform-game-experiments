@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af8ebeabaad034943bca08de2636b4b4, type: 3}
+  m_Name: New Random Terrain Tile
+  m_EditorClassIdentifier: 
+  Filled:
+  - {fileID: -4289654968448028074, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  ThreeSides:
+  - {fileID: 6425203255335965193, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  TwoSidesAndOneCorner:
+  - {fileID: 6059639155888417348, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  TwoAdjacentSides:
+  - {fileID: -2200252834671627533, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  TwoOppositeSides:
+  - {fileID: 6887675553442068203, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  - {fileID: 252161442191513478, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  - {fileID: -6611323732994475427, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  OneSideAndTwoCorners:
+  - {fileID: -5657303321430768637, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  OneSideAndOneLowerCorner:
+  - {fileID: 5610769080649146942, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  OneSideAndOneUpperCorner:
+  - {fileID: 640955456474698073, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  OneSide:
+  - {fileID: 6852789307099694525, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  - {fileID: -1869328153477114120, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  - {fileID: 4368084649229120755, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  FourCorners:
+  - {fileID: 2453265517729645862, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  ThreeCorners:
+  - {fileID: 2104733889569269765, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  TwoAdjacentCorners:
+  - {fileID: -2340037002010212068, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  TwoOppositeCorners:
+  - {fileID: 6067989105521392229, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  OneCorner:
+  - {fileID: -4301180696196550659, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  Empty:
+  - {fileID: -4984990335730387547, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  - {fileID: -6947972005967702179, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  - {fileID: 859310327107361311, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  - {fileID: -3118192492895958102, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  - {fileID: 2634196396993700831, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
+  - {fileID: -4643589362878823344, guid: eb50491b2a9795f46a3b9db940b7476c, type: 3}
