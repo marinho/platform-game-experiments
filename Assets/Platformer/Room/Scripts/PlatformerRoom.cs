@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlatformerRoom : MonoBehaviour
 {
+
     // Collider2D collider2D;
     bool playerIsInside = false;
 

@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f921f1216ef89249b632419ad62672b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawn: {fileID: 0}
 --- !u!212 &6634431996293925437
 SpriteRenderer:
   m_ObjectHideFlags: 0
