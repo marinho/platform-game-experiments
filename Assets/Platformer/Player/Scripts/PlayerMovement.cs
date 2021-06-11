@@ -82,8 +82,10 @@ public class PlayerMovement : MonoBehaviour
             );
         }
 
-        int direction = horizontalDirection < 0 ? 180 : 0;
-        transform.rotation = Quaternion.Euler(0, direction, 0);
+        if (changingDirection) {
+            int direction = horizontalDirection < 0 ? 180 : 0;
+            transform.rotation = Quaternion.Euler(0, direction, 0);
+        }
     }
 
     void UpdateAnimatorState() {

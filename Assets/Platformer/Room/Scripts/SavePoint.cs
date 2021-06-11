@@ -14,7 +14,8 @@ public class SavePoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // TODO: store in user prefs as latest save point
+            GameSaver.Instance.SetSavePointLocation(transform.position);
+            GameSaver.Instance.SetSavePointRotation(transform.rotation);
         }
     }
 
