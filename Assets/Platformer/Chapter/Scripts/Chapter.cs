@@ -16,8 +16,13 @@ public class Chapter : MonoBehaviour
         GameSaver.Instance.SetCurrentChapter(chapterId);
     }
 
+    public void EndChapter() {
+        onEnd.Invoke();
+    }
+
     public void LoadNextChapter() {
-        // TODO
+        var thisScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(thisScene.buildIndex + 1);
     }
 
 }

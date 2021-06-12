@@ -12,12 +12,6 @@ public class PlayerLife : MonoBehaviour
         Respawn();
     }
 
-    void Update() {
-        if (Input.GetButtonUp("Fire1")) {
-            Die();
-        }
-    }
-
     public void Respawn() {
         transform.position = GameSaver.Instance.GetSavePointLocation();
         transform.rotation = GameSaver.Instance.GetSavePointRotation();
