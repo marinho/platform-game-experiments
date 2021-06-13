@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlatformerCamera : Singleton<PlatformerCamera>
+public class PlatformerCamera : MonoBehaviour
 {
     [SerializeField] UnityEvent onMovedTo;
     [SerializeField] float speed;
@@ -11,9 +11,6 @@ public class PlatformerCamera : Singleton<PlatformerCamera>
 
     bool isMoving = false;
     Vector3 movingToPosition;
-
-    // Prevent non-singleton constructor use.
-    protected PlatformerCamera() { }
 
     public void MoveToRoom(Vector3 position) {
         if (animatedMove) {
