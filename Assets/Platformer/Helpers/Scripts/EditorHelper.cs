@@ -1,4 +1,4 @@
-using UnityEngine;
+#if UNITY_EDITOR
 using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -57,3 +57,4 @@ class EditorHelper : EditorWindow
     }
 
 }
+#endif

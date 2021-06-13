@@ -6,6 +6,7 @@ using WSWhitehouse.TagSelector;
 public class SavePoint : MonoBehaviour
 {
     [SerializeField] [TagSelector] string triggerTag = "Player";
+    [SerializeField] bool storePosition = true;
 
     void Awake() {
         var renderer = GetComponent<SpriteRenderer>();
@@ -14,7 +15,7 @@ public class SavePoint : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(triggerTag))
+        if (other.CompareTag(triggerTag) && storePosition)
         {
             GameSaver.Instance.SetSavePointLocation(transform.position);
             GameSaver.Instance.SetSavePointRotation(transform.rotation);
