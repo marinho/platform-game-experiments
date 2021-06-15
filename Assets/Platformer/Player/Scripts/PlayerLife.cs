@@ -18,11 +18,25 @@ public class PlayerLife : MonoBehaviour
         if (latestLocation != null) {
             transform.position = latestLocation.position;
             transform.rotation = latestLocation.rotation;
+        } else {
+            SetLocationToChapterInitialPosition();
         }
         // if (GameSaver.Instance.HasSavedLocation()) {
         //     transform.position = GameSaver.Instance.GetSavePointLocation();
         //     transform.rotation = GameSaver.Instance.GetSavePointRotation();
         // }
+    }
+
+    void MoveTo(Vector2 position, Quaternion rotation) {
+        transform.position = position;
+        transform.rotation = rotation;
+    }
+
+    public void SetLocationToChapterInitialPosition() {
+        var chapter = Chapter.GetForScene(gameObject.scene);
+        if (chapter.initialPosition != null) {
+            MoveTo(chapter.initialPosition.position, chapter.initialPosition.rotation);
+        }
     }
 
     public void Die() {

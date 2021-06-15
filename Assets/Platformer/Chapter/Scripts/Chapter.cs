@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Chapter : MonoBehaviour
 {
     [SerializeField] string chapterId;
-    [SerializeField] Transform initialPosition;
+    [SerializeField] public Transform initialPosition;
     [SerializeField] UnityEvent onStart;
     [SerializeField] UnityEvent onEnd;
 

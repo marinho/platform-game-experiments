@@ -44,11 +44,11 @@ public class PlatformerCamera : MonoBehaviour
     }
 
     void OnRenderObject() {
-        if (isFirstRendering) {
-            isFirstRendering = false;
-            var room = PlayerMovement.Instance.GetCurrentRoom();
-            MoveToRoom(room.transform.position);
-        }
+        // if (isFirstRendering) {
+        //     isFirstRendering = false;
+        //     var room = PlayerMovement.Instance.GetCurrentRoom();
+        //     MoveToRoom(room.transform.position);
+        // }
     }
 
 }
