@@ -12,32 +12,73 @@ public class GameSaver : Singleton<GameSaver>
     public void SetCurrentChapter(string chapterId)
     {
         currentChapterId = chapterId;
-        PlayerPrefs.SetString(GameSaverConsts.LatestPositionChapter, chapterId);
+        SetString(GameSaverConsts.LatestPositionChapter, chapterId);
     }
 
     public void SetSavePointLocation(Vector2 position)
     {
-        PlayerPrefs.SetFloat(GameSaverConsts.LatestPositionLocation + ".position.x", position.x);
-        PlayerPrefs.SetFloat(GameSaverConsts.LatestPositionLocation + ".position.y", position.y);
+        SetFloat(GameSaverConsts.LatestPositionLocation + ".position.x", position.x);
+        SetFloat(GameSaverConsts.LatestPositionLocation + ".position.y", position.y);
+        SetBool(GameSaverConsts.LatestPositionLocation + ".hasPosition", true);
     }
 
     public void SetSavePointRotation(Quaternion rotation)
     {
-        PlayerPrefs.SetFloat(GameSaverConsts.LatestPositionLocation + ".rotation.y", rotation.eulerAngles.y);
+        SetFloat(GameSaverConsts.LatestPositionLocation + ".rotation.y", rotation.eulerAngles.y);
+    }
+
+    public void UnsetSavePointLocation()
+    {
+        DeleteKey(GameSaverConsts.LatestPositionLocation + ".position.x");
+        DeleteKey(GameSaverConsts.LatestPositionLocation + ".position.y");
+        DeleteKey(GameSaverConsts.LatestPositionLocation + ".rotation.y");
+        DeleteKey(GameSaverConsts.LatestPositionLocation + ".hasPosition");
+    }
+
+    public bool HasSavedLocation() {
+        return GetBool(GameSaverConsts.LatestPositionLocation + ".hasPosition");
     }
 
     public Vector2 GetSavePointLocation()
     {
         return new Vector2(
-            PlayerPrefs.GetFloat(GameSaverConsts.LatestPositionLocation + ".position.x"),
-            PlayerPrefs.GetFloat(GameSaverConsts.LatestPositionLocation + ".position.y")
+            GetFloat(GameSaverConsts.LatestPositionLocation + ".position.x"),
+            GetFloat(GameSaverConsts.LatestPositionLocation + ".position.y")
         );
     }
 
     public Quaternion GetSavePointRotation()
     {
-        var y = PlayerPrefs.GetFloat(GameSaverConsts.LatestPositionLocation + ".rotation.y");
+        var y = GetFloat(GameSaverConsts.LatestPositionLocation + ".rotation.y");
         return Quaternion.Euler(0f, y, 0f);
+    }
+
+    void SetFloat(string key, float value) {
+        PlayerPrefs.SetFloat(key, value);
+    }
+
+    float GetFloat(string key) {
+        return PlayerPrefs.GetFloat(key);
+    }
+
+    void SetString(string key, string value) {
+        PlayerPrefs.SetString(key, value);
+    }
+
+    string GetString(string key) {
+        return PlayerPrefs.GetString(key);
+    }
+
+    void SetBool(string key, bool value) {
+        PlayerPrefs.SetInt(key, value ? 1 : 0);
+    }
+
+    bool GetBool(string key) {
+        return PlayerPrefs.GetInt(key) == 1;
+    }
+
+    void DeleteKey(string key) {
+        PlayerPrefs.DeleteKey(key);
     }
 
 }

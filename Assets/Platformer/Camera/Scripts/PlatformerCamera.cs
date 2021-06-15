@@ -11,6 +11,7 @@ public class PlatformerCamera : MonoBehaviour
 
     bool isMoving = false;
     Vector3 movingToPosition;
+    bool isFirstRendering = true;
 
     public void MoveToRoom(Vector3 position) {
         if (animatedMove) {
@@ -40,6 +41,14 @@ public class PlatformerCamera : MonoBehaviour
     void StopMoving() {
         isMoving = false;
         onMovedTo.Invoke();
+    }
+
+    void OnRenderObject() {
+        if (isFirstRendering) {
+            isFirstRendering = false;
+            var room = PlayerMovement.Instance.GetCurrentRoom();
+            MoveToRoom(room.transform.position);
+        }
     }
 
 }

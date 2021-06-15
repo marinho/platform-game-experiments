@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Singleton<PlayerMovement>
 {
+    
+    // Prevent non-singleton constructor use.
+    protected PlayerMovement() { }
+
+    bool isEnabled = true;
+
     [Header("Components")]
     Rigidbody2D rb;
     Animator animator;
@@ -13,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float maxMoveSpeed = 12f;
     [SerializeField] float groundLinearDrag = 10f;
     [SerializeField] float groundLinearDragThreshold = 0.4f;
+    bool canMove => isEnabled;
 
     [Header("Jump Variables")]
     [SerializeField] float jumpForce = 10f;
@@ -21,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float lowJumpFallMultiplier = 5f;
     [SerializeField] int extraJumps = 1;
     [SerializeField] float jumpTime = .1f;
-    bool canJump => Input.GetButtonDown("Jump") && (onGround || extraJumpsValue > 0);
+    bool canJump => Input.GetButtonDown("Jump") && (onGround || extraJumpsValue > 0) && isEnabled;
     bool stillJumping => Input.GetButton("Jump") && isJumping;
     int extraJumpsValue;
     bool isJumping;
@@ -37,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
     float horizontalDirection;
     bool changingDirection => (rb.velocity.x > 0f && horizontalDirection < 0f) ||
                               (rb.velocity.x < 0f && horizontalDirection > 0f);
+
+    PlatformerRoom currentRoom;
 
     void Start()
     {
@@ -61,7 +70,9 @@ public class PlayerMovement : MonoBehaviour
         CheckCollisions();
 
         horizontalDirection = Input.GetAxisRaw("Horizontal");
-        MoveCharacter();
+        if (canMove) {
+            MoveCharacter();
+        }
         UpdateAnimatorState();
 
         if (onGround) {
@@ -159,5 +170,21 @@ public class PlayerMovement : MonoBehaviour
         } else {
             rb.gravityScale = 1f;
         }
+    }
+
+    public void EnableMovements() {
+        isEnabled = true;
+    }
+
+    public void DisableMovements() {
+        isEnabled = false;
+    }
+
+    public void SetCurrentRoom(PlatformerRoom room) {
+        currentRoom = room;
+    }
+
+    public PlatformerRoom GetCurrentRoom() {
+        return currentRoom;
     }
 }

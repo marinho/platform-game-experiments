@@ -11,11 +11,15 @@ public class PlatformerRoom : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag(triggerTag) && Camera.current != null)
+        if (other.CompareTag(triggerTag))
         {
             playerIsInside = true;
-            var camera = Camera.current.GetComponent<PlatformerCamera>();
-            camera.MoveToRoom(transform.position);
+            PlayerMovement.Instance.SetCurrentRoom(this);
+            
+            if (Camera.current != null) {
+                var camera = Camera.current.GetComponent<PlatformerCamera>();
+                camera.MoveToRoom(transform.position);
+            }
         }
     }
 

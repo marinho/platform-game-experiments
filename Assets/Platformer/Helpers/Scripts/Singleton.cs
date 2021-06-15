@@ -24,9 +24,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (m_ShuttingDown)
             {
-                Debug.LogWarning("[Singleton] Instance '" + typeof(T) +
-                    "' already destroyed. Returning null.");
-                return null;
+                Debug.LogWarning("[Singleton] Instance '" + typeof(T) + "' already destroyed. Returning a new instance.");
+                // return null;
+                m_Instance = (T)FindObjectOfType(typeof(T));
+                m_ShuttingDown = false;
+                // return m_Instance;
             }
 
             lock (m_Lock)

@@ -17,8 +17,10 @@ public class SavePoint : MonoBehaviour
     {
         if (other.CompareTag(triggerTag) && storePosition)
         {
-            GameSaver.Instance.SetSavePointLocation(transform.position);
-            GameSaver.Instance.SetSavePointRotation(transform.rotation);
+            var chapter = Chapter.GetForScene(gameObject.scene);
+            chapter.SetLatestLocation(transform);
+            // GameSaver.Instance.SetSavePointLocation(transform.position);
+            // GameSaver.Instance.SetSavePointRotation(transform.rotation);
         }
     }
 

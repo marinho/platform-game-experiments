@@ -13,8 +13,16 @@ public class PlayerLife : MonoBehaviour
     }
 
     public void Respawn() {
-        transform.position = GameSaver.Instance.GetSavePointLocation();
-        transform.rotation = GameSaver.Instance.GetSavePointRotation();
+        var chapter = Chapter.GetForScene(gameObject.scene);
+        var latestLocation = chapter.GetLatestLocation();
+        if (latestLocation != null) {
+            transform.position = latestLocation.position;
+            transform.rotation = latestLocation.rotation;
+        }
+        // if (GameSaver.Instance.HasSavedLocation()) {
+        //     transform.position = GameSaver.Instance.GetSavePointLocation();
+        //     transform.rotation = GameSaver.Instance.GetSavePointRotation();
+        // }
     }
 
     public void Die() {
