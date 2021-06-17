@@ -26,7 +26,11 @@ public class Chapter : MonoBehaviour
     public void LoadNextChapter() {
         // GameSaver.Instance.UnsetSavePointLocation();
         var thisScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(thisScene.buildIndex + 1);
+        LoadScene(thisScene.buildIndex + 1);
+    }
+
+    public void LoadScene(int index) {
+        SceneManager.LoadScene(index);
     }
 
     public static Chapter GetForScene(Scene scene) {

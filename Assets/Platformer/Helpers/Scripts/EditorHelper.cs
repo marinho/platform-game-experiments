@@ -21,7 +21,7 @@ class EditorHelper : EditorWindow
         string currentSceneName = EditorSceneManager.GetActiveScene().name;
         File.WriteAllText(".lastScene", currentSceneName);
 
-        EditorSceneManager.OpenScene(GetScenePath("SampleScene"));
+        EditorSceneManager.OpenScene(GetScenePath("Index Scene"));
         EditorApplication.EnterPlaymode();
     }
     
