@@ -154,11 +154,14 @@ MonoBehaviour:
   airLinearDrag: 0.2
   fallMultiplier: 8
   lowJumpFallMultiplier: 5
-  extraJumps: 1
+  maxJumpsAllowed: 2
   jumpTime: 0.1
+  dashSpeed: 100
+  dashTime: 0.1
+  maxDashesAllowed: 1
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   groundRaycastLength: 2.7
 --- !u!111 &4289846128315159855
 Animation:

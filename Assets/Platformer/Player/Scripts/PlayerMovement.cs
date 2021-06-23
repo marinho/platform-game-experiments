@@ -19,20 +19,32 @@ public class PlayerMovement : Singleton<PlayerMovement>
     [SerializeField] float maxMoveSpeed = 12f;
     [SerializeField] float groundLinearDrag = 10f;
     [SerializeField] float groundLinearDragThreshold = 0.4f;
-    bool canMove => isEnabled;
+    bool canMove => isEnabled && !isDashing;
 
     [Header("Jump Variables")]
     [SerializeField] float jumpForce = 10f;
     [SerializeField] float airLinearDrag = 0.2f;
     [SerializeField] float fallMultiplier = 8f;
     [SerializeField] float lowJumpFallMultiplier = 5f;
-    [SerializeField] int extraJumps = 1;
+    [SerializeField] int maxJumpsAllowed = 2;
     [SerializeField] float jumpTime = .1f;
-    bool canJump => Input.GetButtonDown("Jump") && (onGround || extraJumpsValue > 0) && isEnabled;
+    bool canJump => (jumpsCounter < maxJumpsAllowed) && isEnabled;
+    bool willJump => Input.GetButtonDown("Jump") && canJump;
     bool stillJumping => Input.GetButton("Jump") && isJumping;
-    int extraJumpsValue;
+    int jumpsCounter = 0;
     bool isJumping;
     float jumpTimeCounter;
+
+    [Header("Dash Variables")]
+    [SerializeField] float dashSpeed = 100f;
+    [SerializeField] float dashTime = .1f;
+    [SerializeField] int maxDashesAllowed = 1;
+    float dashTimeCounter = 0f;
+    int dashesCounter = 0;
+    Vector2 dashDirection;
+    bool isDashing = false;
+    bool canDash => !isDashing && (dashesCounter < maxDashesAllowed) && isEnabled;
+    bool willDash => Input.GetButtonDown("Dash") && canDash;
 
     [Header("Layer Masks")]
     [SerializeField] LayerMask groundLayer;
@@ -41,9 +53,9 @@ public class PlayerMovement : Singleton<PlayerMovement>
     [SerializeField] float groundRaycastLength = 2.7f;
     bool onGround;
 
-    float horizontalDirection;
-    bool changingDirection => (rb.velocity.x > 0f && horizontalDirection < 0f) ||
-                              (rb.velocity.x < 0f && horizontalDirection > 0f);
+    Vector2 direction;
+    bool changingDirection => (rb.velocity.x > 0f && direction.x < 0f) ||
+                              (rb.velocity.x < 0f && direction.x > 0f);
 
     PlatformerRoom currentRoom;
 
@@ -55,12 +67,46 @@ public class PlayerMovement : Singleton<PlayerMovement>
 
     void Update()
     {
-        if (canJump) {
+        UpdateForDash();
+        UpdateForJump();
+    }
+
+    void UpdateForDash() {
+        if (willDash) {
+            isDashing = true;
+            dashDirection = direction;        
+            dashesCounter++;
+        }
+        else if (onGround) {
+            dashesCounter = 0;
+        }
+
+        if (isDashing) {
+            if (dashTimeCounter >= dashTime) {
+                dashTimeCounter = 0;
+                isDashing = false;
+                rb.velocity = Vector2.zero;
+            } else {
+                dashTimeCounter += Time.deltaTime;
+                rb.velocity = dashDirection * dashSpeed;
+            }
+        }
+    }
+
+    void UpdateForJump()
+    {
+        if (willJump) {
+            jumpsCounter++;
             Jump();
         }
+        else if (onGround) {
+            jumpsCounter = 0;
+        }
+
         if (stillJumping) {
             IncreaseJumping();
         }
+
         if (Input.GetButtonUp("Jump")) {
             isJumping = false;
         }
@@ -68,12 +114,14 @@ public class PlayerMovement : Singleton<PlayerMovement>
 
     void FixedUpdate() {
         CheckCollisions();
+        direction = new Vector2(
+            Input.GetAxisRaw("Horizontal"),
+            Input.GetAxisRaw("Vertical")
+        );
 
-        horizontalDirection = Input.GetAxisRaw("Horizontal");
         if (canMove) {
             MoveCharacter();
         }
-        UpdateAnimatorState();
 
         if (onGround) {
             ApplyGroundLinearDrag();
@@ -81,10 +129,12 @@ public class PlayerMovement : Singleton<PlayerMovement>
             ApplyAirLinearDrag();
             FallMultiplier();
         }
+
+        UpdateAnimatorState();
     }
 
     void MoveCharacter() {
-        rb.AddForce(new Vector2(horizontalDirection, 0f) * movementAcceleration);
+        rb.AddForce(new Vector2(direction.x, 0f) * movementAcceleration);
 
         if (Mathf.Abs(rb.velocity.x) > maxMoveSpeed) {
             rb.velocity = new Vector2(
@@ -94,8 +144,8 @@ public class PlayerMovement : Singleton<PlayerMovement>
         }
 
         if (changingDirection) {
-            int direction = horizontalDirection < 0 ? 180 : 0;
-            transform.rotation = Quaternion.Euler(0, direction, 0);
+            int orientation = direction.x < 0 ? 180 : 0;
+            transform.rotation = Quaternion.Euler(0, orientation, 0);
         }
     }
 
@@ -106,7 +156,7 @@ public class PlayerMovement : Singleton<PlayerMovement>
     }
 
     void ApplyGroundLinearDrag() {
-        if (Mathf.Abs(horizontalDirection) < groundLinearDragThreshold || changingDirection) {
+        if (Mathf.Abs(direction.x) < groundLinearDragThreshold || changingDirection) {
             rb.drag = groundLinearDrag;
         } else {
             rb.drag = 0f;
@@ -118,12 +168,6 @@ public class PlayerMovement : Singleton<PlayerMovement>
     }
 
     void Jump() {
-        if (!onGround) {
-            extraJumpsValue--;
-        } else {
-            extraJumpsValue = extraJumps;
-        }
-
         isJumping = true;
         jumpTimeCounter = jumpTime;
 
