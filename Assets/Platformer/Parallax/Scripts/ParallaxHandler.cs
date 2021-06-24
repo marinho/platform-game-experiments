@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+// Thanks to Adam Cyounius in https://www.youtube.com/watch?v=tMXgLBwtsvI&t=1989s
 public class ParallaxHandler : MonoBehaviour
 {
     // [SerializeField] float cameraMovementDifferenceRatio;
